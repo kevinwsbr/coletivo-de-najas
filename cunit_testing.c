@@ -2,6 +2,9 @@
 #include <stdlib.h>
 #include "src/libs/compact.h"
 #include "src/libs/descompact.h"
+#include "src/libs/data_structures.h"
+#include "src/libs/utils.h"
+#include <CUnit/CUnit.h>
 #include <CUnit/Basic.h>
 
 
@@ -38,7 +41,7 @@ int closing()
 
 void test_frequency_saving()
 {
-    int *frequencies = saving_frequency(input);
+    int *frequencies = save_frequency(input);
     //input = "aaaaabbbbccccddeef" (a->[5], b->[4], c->[4], d->[2], e->[2], f->[1])
     int a = 'a', b = 'b', c = 'c', d = 'd', e = 'e', f = 'f';
     CU_ASSERT_EQUAL(frequencies[a], 5);
@@ -52,7 +55,7 @@ void test_frequency_enqueue()
 {
     queue *queue1 = create_queue();
     rewind(input);
-    int *frequencies = saving_frequency(input);
+    int *frequencies = save_frequency(input);
     frequency_enqueue(frequencies, queue1);
     //input = "aaaaabbbbccccddeef" (a->[5], b->[4], c->[4], d->[2], e->[2], f->[1])
     node *current = queue1->head;
@@ -159,7 +162,7 @@ void test_tree()
 void test_merge_nodes()
 {
     queue* queue1 = create_queue();
-    int *frequencies = saving_frequency(input);
+    int *frequencies = save_frequency(input);
     frequency_enqueue(frequencies, queue1);
     node *root = merge_nodes(queue1);
 
@@ -171,7 +174,7 @@ void test_tree_size()
 {
     rewind(input);
     queue* queue1 = create_queue();
-    int *frequencies = saving_frequency(input);
+    int *frequencies = save_frequency(input);
     frequency_enqueue(frequencies, queue1);
     node *root = merge_nodes(queue1);
 
@@ -182,7 +185,7 @@ void test_preorder_tree()
 {
     rewind(input);
     queue* queue1 = create_queue();
-    int *frequencies = saving_frequency(input);
+    int *frequencies = save_frequency(input);
     frequency_enqueue(frequencies, queue1);
     node *root = merge_nodes(queue1);
 
@@ -205,10 +208,10 @@ void test_huff_code()
     char compacted_byte[50];
     hash_table *hash_table1 = create_hash_table();
     queue* queue1 = create_queue();
-    int *frequencies = saving_frequency(input);
+    int *frequencies = save_frequency(input);
     frequency_enqueue(frequencies, queue1);
     node *root = merge_nodes(queue1);
-    creating_huff(root, 0, hash_table1, compacted_byte);
+    generate_huffman_tree(root, 0, hash_table1, compacted_byte);
     int a = 'a', b = 'b', c = 'c', d = 'd', e = 'e', f = 'f';
 
     CU_ASSERT_EQUAL(hash_table1->table[a]->n, 2);
