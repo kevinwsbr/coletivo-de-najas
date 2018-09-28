@@ -1,8 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "libs/compact.h"
-#include "libs/descompact.h"
-#include "CUnit/Basic.h"
+#include "src/libs/compact.h"
+#include "src/libs/descompact.h"
+#include <CUnit/Basic.h>
 
 
 FILE *input = NULL;
