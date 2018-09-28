@@ -275,7 +275,7 @@ int main()
 			countABB = search_bt_counter(arvore, array[index]);
 			array_visited[index] = 1;			
 
-			fprintf(list_data_comp, "%d\t%d\t%d\t%d\n", countAVL, array_size-index, countABB, index+1);
+			fprintf(list_data_comp, "%d\t%d\t%d\t%d\n", countAVL, index+1, countABB, index+1);
 		}
 	}
 	free(array);
