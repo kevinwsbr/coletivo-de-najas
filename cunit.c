@@ -1,12 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <CUnit/CUnit.h>
+#include <CUnit/Basic.h>
 #include "src/libs/compact.h"
 #include "src/libs/descompact.h"
 #include "src/libs/data_structures.h"
 #include "src/libs/utils.h"
-#include <CUnit/CUnit.h>
-#include <CUnit/Basic.h>
-
 
 FILE *input = NULL;
 //---- --- - - -- -
