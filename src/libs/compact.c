@@ -71,7 +71,7 @@ FILE *compact(FILE *original_file, char filename[])
         }
     }
     
-    fprintf(compacted_file, "%c", compact);
+    //fprintf(compacted_file, "%c", compact);
 
     fclose(original_file);
     fclose(compacted_file);

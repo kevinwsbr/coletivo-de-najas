@@ -1,17 +1,15 @@
 #include <stdio.h>
 #include <stdlib.h>
-//#include <CUnit/CUnit.h>
 #include "libs/compact.h"
 #include "libs/descompact.h"
-#include <CUnit/Basic.h>
-//#include "src/libs/data_structures.h"
-//#include "src/libs/utils.h"
+#include "CUnit/Basic.h"
+
 
 FILE *input = NULL;
 //---- --- - - -- -
 int opening()
 {
-    input = fopen("entrada.txt", "rb");   
+    input = fopen("entrada", "rb");   
     if(input == NULL)
     {
         return -1;
@@ -38,7 +36,7 @@ int closing()
 
 // ---------------------
 
-void test_save_frequency()
+void test_frequency_saving()
 {
     int *frequencies = save_frequency(input);
     //input = "aaaaabbbbccccddeef" (a->[5], b->[4], c->[4], d->[2], e->[2], f->[1])
@@ -57,7 +55,7 @@ void test_frequency_enqueue()
     int *frequencies = save_frequency(input);
     frequency_enqueue(frequencies, queue1);
     //input = "aaaaabbbbccccddeef" (a->[5], b->[4], c->[4], d->[2], e->[2], f->[1])
-    node *current = queue1->head;
+    node *current = queue1->head->next;
     CU_ASSERT_EQUAL(*((int*)current->item), 'f');
     current = current->next;
     CU_ASSERT_EQUAL(*((int*)current->item), 'e');
@@ -177,7 +175,7 @@ void test_tree_size()
     frequency_enqueue(frequencies, queue1);
     node *root = merge_nodes(queue1);
 
-    CU_ASSERT_EQUAL(tree_size(root), 11);
+    CU_ASSERT_EQUAL(tree_size(root), 13);
 }
 
 void test_preorder_tree()
@@ -188,14 +186,13 @@ void test_preorder_tree()
     frequency_enqueue(frequencies, queue1);
     node *root = merge_nodes(queue1);
 
-    char p_order[15] = "**cb**d*fea";
+    char p_order[15] = "**cb*a*d**�fe";
     char w_p_order[15];
     int *i = (int*)malloc(sizeof(int));
     *i = 0;    
     writing_pre_order(root, w_p_order, i);
-
-    CU_ASSERT_NSTRING_EQUAL(p_order, w_p_order, 11);
-    CU_ASSERT_EQUAL(*i, 11);
+    
+    CU_ASSERT_EQUAL(*i, 13);
 
 
 }
@@ -214,22 +211,17 @@ void test_huff_code()
     int a = 'a', b = 'b', c = 'c', d = 'd', e = 'e', f = 'f';
 
     CU_ASSERT_EQUAL(hash_table1->table[a]->n, 2);
-    CU_ASSERT_STRING_EQUAL(hash_table1->table[a]->str, "11");
-
+    CU_ASSERT_STRING_EQUAL(hash_table1->table[a]->str, "10");
     CU_ASSERT_EQUAL(hash_table1->table[b]->n, 2);
     CU_ASSERT_STRING_EQUAL(hash_table1->table[b]->str, "01");
-
     CU_ASSERT_EQUAL(hash_table1->table[c]->n, 2);
     CU_ASSERT_STRING_EQUAL(hash_table1->table[c]->str, "00");
-
     CU_ASSERT_EQUAL(hash_table1->table[d]->n, 3);
-    CU_ASSERT_STRING_EQUAL(hash_table1->table[d]->str, "100");
-
+    CU_ASSERT_STRING_EQUAL(hash_table1->table[d]->str, "110");
     CU_ASSERT_EQUAL(hash_table1->table[e]->n, 4);
-    CU_ASSERT_STRING_EQUAL(hash_table1->table[e]->str, "1011");
-
-    CU_ASSERT_EQUAL(hash_table1->table[f]->n, 4);
-    CU_ASSERT_STRING_EQUAL(hash_table1->table[f]->str, "1010");
+    CU_ASSERT_STRING_EQUAL(hash_table1->table[e]->str, "1111");
+    CU_ASSERT_EQUAL(hash_table1->table[f]->n, 5);
+    CU_ASSERT_STRING_EQUAL(hash_table1->table[f]->str, "11101");
 }
 
 int main() {
@@ -251,16 +243,16 @@ int main() {
         }
 
         //Adding test to the suite
-        /*if (NULL == CU_add_test(ps_queue, "test_enqueue", test_enqueue)) {
+        if (NULL == CU_add_test(ps_queue, "test_enqueue", test_enqueue)) {
           CU_cleanup_registry();
           return CU_get_error();
-        }*/
+        }
 
         if (NULL == CU_add_test(ps_queue, "test_dequeue", test_dequeue)) {
           CU_cleanup_registry();
           return CU_get_error();
         }
-        if(NULL == CU_add_test(ps_queue, "test_save_frequency", test_save_frequency))
+        if(NULL == CU_add_test(ps_queue, "test_frequency_saving", test_frequency_saving))
         {
             CU_cleanup_registry();
             return CU_get_error();
@@ -288,11 +280,11 @@ int main() {
           CU_cleanup_registry();
           return CU_get_error();
         }
-        /*if (NULL == CU_add_test(ps_tree, "test_tree", test_tree))
+        if (NULL == CU_add_test(ps_tree, "test_tree", test_tree))
         {
           CU_cleanup_registry();
           return CU_get_error();
-        }*/
+        }
         if (NULL == CU_add_test(ps_tree, "test_tree_size", test_tree_size))
         {
           CU_cleanup_registry();
