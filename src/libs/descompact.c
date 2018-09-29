@@ -2,15 +2,19 @@
 
 int descompact(FILE *compacted_file, char filename[])
 {
+    // integers 
     int file_size = 0;
     short trash_s, tree_s = 8191;
 
+    // chars
     char output_name[50];
     unsigned char firstbyte, secondbyte;
 
+    // data structure
     node *root = NULL;
+    
+    // file pointer
     FILE *descompacted_file;
-
 
     printf("Insert output file name: ");
     scanf("%[^\n]s", output_name);
@@ -28,6 +32,7 @@ int descompact(FILE *compacted_file, char filename[])
     
     firstbyte = fgetc(compacted_file);
     secondbyte = fgetc(compacted_file);
+    
     trash_s = firstbyte >> 5;
     tree_s = ((firstbyte << 8) | secondbyte) & tree_s;
 
