@@ -4,7 +4,7 @@ FILE *compact(FILE *original_file, char filename[])
 {
     //integers
     int *frequency, count = 0;
-    short mask3, final, trash, tree;
+    short final, trash, tree;
 
     //chars
     char compacted_byte[260];
@@ -37,9 +37,9 @@ FILE *compact(FILE *original_file, char filename[])
     trash = trash_size(hash, frequency);
     tree = tree_size(root);
 
-    mask3 = trash << 13;
+    trash = trash << 13;
 
-    final = tree | mask3;
+    final = tree | trash;
 
     //writing first byte
     current_byte = final >> 8;
