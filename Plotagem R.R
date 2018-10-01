@@ -9,11 +9,11 @@ max_x <- max(comp208_data$tamanhoAVL, comp208_data$tamanhoABB)
 plot_colors <- c("blue","red")
 
 # Start PNG device driver to save output to figure.png
-png("figura.png", height=600, width=800, 
+png("figura.png", height=720, width=1280, 
     bg="gray")
 
 #Plot list function
-plot(comp208_data$tamanhoAVL, comp208_data$comparacoesAVL, type="p", col=plot_colors[1], 
+plot(comp208_data$tamanhoABB, comp208_data$comparacoesABB, type="p", pch=20, col=plot_colors[2], 
      ylim=c(0,max_y), xlim=c(0,max_x), axes=FALSE, ann=FALSE)
 #print(max_x)
 
@@ -27,8 +27,8 @@ axis(2, las=1, at=((max_y %% 1000000)/10)*0:max_y)
 box()
 
 # Graph BST with red dashed line and square points
-lines(comp208_data$tamanhoABB, comp208_data$comparacoesABB, type="p", pch=22, lty=2, 
-      col=plot_colors[2])
+lines(comp208_data$tamanhoAVL, comp208_data$comparacoesAVL, type="p", pch=20, lty=2, 
+      col=plot_colors[1])
 
 
 # Create a title with a red, bold/italic font
@@ -42,7 +42,7 @@ title(ylab= "Number of Comparisons", col.lab=rgb(0, 0, 0), cex.lab=1.75, line=-2
 namesStruct <- c("AVL", "BST")
 
 legend(1, max_y, namesStruct, cex=0.8, col=plot_colors, 
-       pch=21:22, lty=1:2);
+       pch=20:20, lty=1:2);
 
 # Turn off device driver (to flush output to png)
 dev.off()

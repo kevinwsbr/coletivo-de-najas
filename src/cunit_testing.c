@@ -1,8 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <CUnit/Basic.h>
 #include "libs/compact.h"
 #include "libs/descompact.h"
-#include "CUnit/Basic.h"
 
 
 FILE *input = NULL;
@@ -186,7 +186,7 @@ void test_preorder_tree()
     frequency_enqueue(frequencies, queue1);
     node *root = merge_nodes(queue1);
 
-    char p_order[15] = "**cb*a*d**�fe";
+    char p_order[15] = "**cb*a*d**fe";
     char w_p_order[15];
     int *i = (int*)malloc(sizeof(int));
     *i = 0;    

@@ -7,7 +7,7 @@ FILE *compact(FILE *original_file, char filename[])
     short final, trash, tree;
 
     //chars
-    char compacted_byte[260];
+    char compacted_byte[256];
     unsigned char current_byte, compact = 0;
 
     //data structures
@@ -39,7 +39,7 @@ FILE *compact(FILE *original_file, char filename[])
 
     trash = trash << 13;
 
-    final = tree | trash;
+    final = trash | tree;
 
     //writing first byte
     current_byte = final >> 8;
@@ -71,7 +71,6 @@ FILE *compact(FILE *original_file, char filename[])
         }
     }
     
-    //fprintf(compacted_file, "%c", compact);
 
     fclose(original_file);
     fclose(compacted_file);
@@ -95,8 +94,7 @@ int generate_huffman_tree(node *root, int count, hash_table *ht, char string[])
 }
 int *save_frequency(FILE *file)
 {
-    int *frequency = (int *)calloc(1 << 8, sizeof(int));
-    long file_size;
+    int *frequency = (int *)calloc(256, sizeof(int));
     unsigned char c;
     
     while(!feof(file))

@@ -36,7 +36,7 @@ void display_help()
 }
 
 
-int is_bit_i_set(unsigned char c, int i) //imprime os bits do respectivo char
+int is_bit_i_set(unsigned char c, int i)
 {
     unsigned char mask = 1 << i;
     return mask & c;
@@ -46,7 +46,7 @@ unsigned char set_bit(unsigned char c, int i)
     unsigned char mask = 1 << i;
     return mask | c;
 }
-void print_un_char(unsigned char c) //imprime um character
+void print_un_char(unsigned char c)
 {
     int i;
     for (i = 0; i < 8; i++)
